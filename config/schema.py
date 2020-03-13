@@ -1,19 +1,11 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from rooms.models import Room
+import rooms.schema
 
 
-class RoomType(DjangoObjectType):
-    class Meta:
-        model = Room
-
-
-class Query(graphene.ObjectType):
-    all_rooms = graphene.List(RoomType)
-
-    def resolve_all_rooms(self, info):
-        return Room.objects.all()
+class Query(rooms.schema.Query, graphene.ObjectType):
+    pass
 
 
 class Mutation:
