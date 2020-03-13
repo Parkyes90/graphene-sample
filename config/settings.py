@@ -137,3 +137,7 @@ MEDIA_URL = "/media/"
 # Auth
 
 AUTH_USER_MODEL = "users.User"
+
+
+# Graphene
+GRAPHENE = {"MIDDLEWARE": ("config.middleware.JWTMiddleware",)}
