@@ -7,7 +7,7 @@ from .models import User
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        exclude = ("password", "is_superuser", "last_login", "is_staff")
+        exclude = ("password", "is_superuser", "last_login")
 
 
 class UserArrayType(graphene.ObjectType):

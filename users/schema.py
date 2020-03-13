@@ -1,22 +1,18 @@
 import graphene
 
-from .models import User
+from .mutations import CreateAccountMutation
 from .types import UserArrayType, UserType
+from .queries import resolve_user, resolve_all_users
 
 
-class Query:
-    all_users = graphene.Field(UserArrayType, page=graphene.Int())
-    user = graphene.Field(UserType, pk=graphene.ID(required=True))
+class Query(object):
+    all_users = graphene.Field(
+        UserArrayType, page=graphene.Int(), resolver=resolve_all_users
+    )
+    user = graphene.Field(
+        UserType, pk=graphene.ID(required=True), resolver=resolve_user
+    )
 
-    def resolve_all_users(self, info, page):
-        if page < 1:
-            page = 1
-        page_size = 20
-        queryset = User.objects.all()
-        total = queryset.count()
-        start = (page - 1) * page_size
-        end = page * page_size
-        return UserArrayType(arr=queryset[start:end], total=total)
 
-    def resolve_user(self, info, pk):
-        return User.objects.get(pk=pk)
+class Mutation(object):
+    create_account = CreateAccountMutation.Field()
