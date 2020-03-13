@@ -1,10 +1,10 @@
 import graphene
-from graphene_django import DjangoObjectType
 
 import rooms.schema
+import users.schema
 
 
-class Query(rooms.schema.Query, graphene.ObjectType):
+class Query(rooms.schema.Query, users.schema.Query, graphene.ObjectType):
     pass
 
 
